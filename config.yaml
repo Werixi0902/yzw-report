@@ -1,0 +1,69 @@
+﻿# ============================================================
+# 定时数据抓取系统 - 配置文件
+# ============================================================
+
+global:
+  data_dir: "./data"
+  log_dir: "./logs"
+  timeout: 60
+  retry_times: 3
+
+sites:
+  - name: "云筑网考勤统计"
+    base_url: "https://lw.yzw.cn"
+    login_url: "https://lw.yzw.cn/portal"
+    data_url: "https://lw.yzw.cn/ProjectAttendance/Statistic"
+    method: "browser"
+    login_method: "cookie"
+    cookie_file: "./configs/yzw_cookies.json"
+    login_fields:
+      account: "青塔改造项目"
+      password: "qingta123*"
+    # 动态日期检测：自动读取表头月份和天数列，选取最近N天
+    dynamic_dates: true
+    day_count: 10          # 显示最近N天
+    day_mode: "last_n"     # last_n=最近N天, first_n=前N天
+    fields:
+      姓名: "#attendanceTable tbody tr td:nth-child(1)"
+      身份证号: "#attendanceTable tbody tr td:nth-child(2)"
+      参建单位: "#attendanceTable tbody tr td:nth-child(3)"
+      班组: "#attendanceTable tbody tr td:nth-child(4)"
+      工种: "#attendanceTable tbody tr td:nth-child(5)"
+      考勤卡号: "#attendanceTable tbody tr td:nth-child(6)"
+      考勤卡状态: "#attendanceTable tbody tr td:nth-child(7)"
+      # 每日工数列和汇总列由 dynamic_dates 自动检测，以下仅为初始占位
+      总工时: "#attendanceTable tbody tr td:nth-child(19)"
+      请假天数: "#attendanceTable tbody tr td:nth-child(20)"
+      出勤天数: "#attendanceTable tbody tr td:nth-child(21)"
+      有效工天: "#attendanceTable tbody tr td:nth-child(22)"
+    # 翻页：每页100条，DataTables下一页按钮
+    pagination:
+      enabled: true
+      type: "click"
+      next_selector: "#attendanceTable_next:not(.disabled)"
+      max_pages: 10
+      page_size: 100
+    request_interval: 2
+    browser_config:
+      headless: true
+      viewport_width: 1920
+      viewport_height: 1080
+      locale: "zh-CN"
+      timezone: "Asia/Shanghai"
+      remove_overlay: true  # 自动移除遮罩层
+
+schedule:
+  rule: "daily:08:00"
+  timezone: "Asia/Shanghai"
+
+notifier:
+  method: "email"
+  email:
+    smtp_server: "smtp.qq.com"
+    smtp_port: 465
+    use_ssl: true
+    sender: "327555703@qq.com"
+    password: "jhctatlfjcdzcahj"
+    recipients:
+      - "327555703@qq.com"
+    subject_template: "【考勤报告】丰台区青塔项目 - {date_range}"

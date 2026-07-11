@@ -1,0 +1,382 @@
+[
+  {
+    "name": "com.l.vc.cp",
+    "value": "E3351C2070416EB246CA5FD6AFED003F95792ABA2C5F12B28B5734",
+    "domain": "db-api.yzw.cn",
+    "path": "/mgt/v1/login",
+    "expires": -1,
+    "httpOnly": false,
+    "secure": false,
+    "sameSite": "Lax"
+  },
+  {
+    "name": "HWWAFSESID",
+    "value": "79aa0765a89c3c3e6c",
+    "domain": "lw.yzw.cn",
+    "path": "/",
+    "expires": -1,
+    "httpOnly": false,
+    "secure": false,
+    "sameSite": "Lax"
+  },
+  {
+    "name": "HWWAFSESTIME",
+    "value": "1783650020505",
+    "domain": "lw.yzw.cn",
+    "path": "/",
+    "expires": -1,
+    "httpOnly": false,
+    "secure": false,
+    "sameSite": "Lax"
+  },
+  {
+    "name": "BAIDUID_BFESS",
+    "value": "3B90375F13C225792AC5E94542F49D0F:FG=1",
+    "domain": ".baidu.com",
+    "path": "/",
+    "expires": 1815186028.51124,
+    "httpOnly": false,
+    "secure": true,
+    "sameSite": "None"
+  },
+  {
+    "name": "AGL_USER_ID",
+    "value": "b914edb2-7af7-498d-aab0-d8853d1689cf",
+    "domain": ".lw.yzw.cn",
+    "path": "/",
+    "expires": 1818210028.559126,
+    "httpOnly": false,
+    "secure": false,
+    "sameSite": "Lax"
+  },
+  {
+    "name": "HWWAFSESID",
+    "value": "b10065535602bf5e7f8",
+    "domain": "agw.yzw.cn",
+    "path": "/",
+    "expires": -1,
+    "httpOnly": false,
+    "secure": false,
+    "sameSite": "Lax"
+  },
+  {
+    "name": "HWWAFSESTIME",
+    "value": "1783650025306",
+    "domain": "agw.yzw.cn",
+    "path": "/",
+    "expires": -1,
+    "httpOnly": false,
+    "secure": false,
+    "sameSite": "Lax"
+  },
+  {
+    "name": "HWWAFSESID",
+    "value": "64febf4caf4d9226af",
+    "domain": "ucenter.yzw.cn",
+    "path": "/",
+    "expires": -1,
+    "httpOnly": false,
+    "secure": false,
+    "sameSite": "Lax"
+  },
+  {
+    "name": "HWWAFSESTIME",
+    "value": "1783650026857",
+    "domain": "ucenter.yzw.cn",
+    "path": "/",
+    "expires": -1,
+    "httpOnly": false,
+    "secure": false,
+    "sameSite": "Lax"
+  },
+  {
+    "name": "HWWAFSESTIME",
+    "value": "1783650027382",
+    "domain": "db-api.yzw.cn",
+    "path": "/",
+    "expires": -1,
+    "httpOnly": false,
+    "secure": false,
+    "sameSite": "Lax"
+  },
+  {
+    "name": "HWWAFSESID",
+    "value": "f8abda083d18b3aabd",
+    "domain": "db-api.yzw.cn",
+    "path": "/",
+    "expires": -1,
+    "httpOnly": false,
+    "secure": false,
+    "sameSite": "Lax"
+  },
+  {
+    "name": "HWWAFSESID",
+    "value": "b416173602b1f15516",
+    "domain": "static.yzw.cn",
+    "path": "/",
+    "expires": -1,
+    "httpOnly": false,
+    "secure": false,
+    "sameSite": "Lax"
+  },
+  {
+    "name": "HWWAFSESTIME",
+    "value": "1783650030280",
+    "domain": "static.yzw.cn",
+    "path": "/",
+    "expires": -1,
+    "httpOnly": false,
+    "secure": false,
+    "sameSite": "Lax"
+  },
+  {
+    "name": "gt_local_id",
+    "value": "oYvZS4bMZxI/bEfepqgUDhJkNTQI6eI8LWQeGHw9IuTd2a1UuNMIwA==",
+    "domain": "lw.yzw.cn",
+    "path": "/",
+    "expires": 1818210035.929449,
+    "httpOnly": false,
+    "secure": false,
+    "sameSite": "Lax"
+  },
+  {
+    "name": "HWWAFSESTIME",
+    "value": "1783650032824",
+    "domain": "lwres.yzw.cn",
+    "path": "/",
+    "expires": -1,
+    "httpOnly": false,
+    "secure": false,
+    "sameSite": "Lax"
+  },
+  {
+    "name": "HWWAFSESID",
+    "value": "15e2cf71258d14f046",
+    "domain": "mf-api.yzw.cn",
+    "path": "/",
+    "expires": -1,
+    "httpOnly": false,
+    "secure": false,
+    "sameSite": "Lax"
+  },
+  {
+    "name": "HWWAFSESTIME",
+    "value": "1783650033806",
+    "domain": "mf-api.yzw.cn",
+    "path": "/",
+    "expires": -1,
+    "httpOnly": false,
+    "secure": false,
+    "sameSite": "Lax"
+  },
+  {
+    "name": "HWWAFSESID",
+    "value": "02cb0a30e522d2d154",
+    "domain": "lwres.yzw.cn",
+    "path": "/",
+    "expires": -1,
+    "httpOnly": false,
+    "secure": false,
+    "sameSite": "Lax"
+  },
+  {
+    "name": "com.contractorportal.selectedcontracorcode",
+    "value": "739744A8FA6A4AFC5131FDEBAF4DE628007EE1362C5C13B5C65626EEFAE6F82BC9D5DA4A5F8DC51D7B523AE4A8C6DA399CA6A2BA510B8418B0AD1181E4528660A3AB9E8708D4D373E38B203B52C42E",
+    "domain": ".yzw.cn",
+    "path": "/",
+    "expires": -1,
+    "httpOnly": true,
+    "secure": true,
+    "sameSite": "Lax"
+  },
+  {
+    "name": "com.contractorportal.usercontracorcode",
+    "value": "B34D4D3EA65760E7EC2FD145F1A917DFEB1AFC062C5D11B48B5627EEFBE6F92FCDD5DA4E588DC51D7140",
+    "domain": ".yzw.cn",
+    "path": "/",
+    "expires": -1,
+    "httpOnly": true,
+    "secure": true,
+    "sameSite": "Lax"
+  },
+  {
+    "name": "usercellphone",
+    "value": "0D1954F79F9AEEF3059D8AC79EAF341B9727051A2C5C19BC825225EEF3E0FC2BDB",
+    "domain": ".yzw.cn",
+    "path": "/",
+    "expires": 1815186124.932658,
+    "httpOnly": true,
+    "secure": true,
+    "sameSite": "None"
+  },
+  {
+    "name": "weakpwd.yzw",
+    "value": "6586433E2D4284A2527A069BFD39726FCB5376D7EE66D73ABD",
+    "domain": ".yzw.cn",
+    "path": "/",
+    "expires": -1,
+    "httpOnly": true,
+    "secure": true,
+    "sameSite": "Lax"
+  },
+  {
+    "name": "com.l.vc.cp",
+    "value": "D052732F523CF36EA627CA5B0C6F09318C45047D2C5D17B5825F34",
+    "domain": ".yzw.cn",
+    "path": "/",
+    "expires": -1,
+    "httpOnly": true,
+    "secure": true,
+    "sameSite": "None"
+  },
+  {
+    "name": "Login_LatestLoginTab",
+    "value": "1",
+    "domain": ".yzw.cn",
+    "path": "/",
+    "expires": 1818210124.933488,
+    "httpOnly": false,
+    "secure": false,
+    "sameSite": "Lax"
+  },
+  {
+    "name": "HWWAFSESID",
+    "value": "aadd53bbe6892d6e3d7",
+    "domain": "auac-sso.yzw.cn",
+    "path": "/",
+    "expires": -1,
+    "httpOnly": false,
+    "secure": false,
+    "sameSite": "Lax"
+  },
+  {
+    "name": "HWWAFSESTIME",
+    "value": "1783650118999",
+    "domain": "auac-sso.yzw.cn",
+    "path": "/",
+    "expires": -1,
+    "httpOnly": false,
+    "secure": false,
+    "sameSite": "Lax"
+  },
+  {
+    "name": "yzw-auac-token",
+    "value": "eON4ElMhyf1NXN6ARGnuWHlIJdVIb7vrD1ZNHwKgNKEueV53ClNZ%2FEQ%2FGCdTBR4RPyc83JjGStPZDwTT%2FTHHBvWdOLneHoklNN8fUDXOG5U%3D",
+    "domain": ".yzw.cn",
+    "path": "/",
+    "expires": 1818210125.452303,
+    "httpOnly": true,
+    "secure": true,
+    "sameSite": "None"
+  },
+  {
+    "name": "LoginRequestKey",
+    "value": "213DB704DBCFCFDC72F59D2A5058892DAEA79777B9368279ED7F3112458E409A7A76237F75FC8A34B78788C8F82CDA929575999B8DF09B8071412FE9993253BFA5EFCE384C0D7302CA78F6DA503270131CF2D55F4F47D9558B096F30DCFE88E48437EA0A7BF8B524A3084B5DE96F2AE560A0023BFF6C8D35BF1A1062BB83003AC6D77AC83411C58F5064C71021C52FAF1AE293E3",
+    "domain": ".yzw.cn",
+    "path": "/",
+    "expires": 1818210125.452445,
+    "httpOnly": true,
+    "secure": true,
+    "sameSite": "None"
+  },
+  {
+    "name": "web.auth.yzw",
+    "value": "6C9BBDEC48DF5F525DAE7A3CFC79FA5B3BAFCA5AF325EE3ABD3B535C69906CE725085C7200A5F16DF9CD9BD3D3079E9A8310CDCC1D583C3783E1AD4C34EBE172C3F2B623771F4A21ED40C3C3541D0B4132FBB93F48BA30DE1E0E7154D4CF8BD1A80CA4395FE8B972C33B5254D539408E12E76443F80BB813B43D3F7983891C02C9C647D47D47BAED4A4DE03318E401E02EB3C9C866A254A33CFBFBB178DAE950549750A6815EDA676CAB4AB3D64C02318AE31E6D9E2D93A397E8AB29876927D2CCBE0F76ECA10C89074AC5F9A0E0265EF0AA5B1F3F9C6045D2DB92AE03A4C79B1397586C9A4A0D456D6D794C879E596C16ED54D111D67A8511C3E9460AEBCFADCBCA66705F803B4CB41022E98FCC4ED1A56976ED6781054AB2112DEB3EF732AD5F571FF64BD4F5915FABA831CB4E10D74F4410E4FA00BC7593069A572877F132ADFE0F58E37A1666FC61EEE2B71495754C792DD9DD6FFF42AA7A66CCF6BA0B53CC0878B7796A6FF9FE17AECD838B89C9EBDBDB2DF7B0DAE438476308CA0ED0FDAF7B5396247F5ADFF8B45D2445A9BE86A45CC2C37146700C3999A8B4605C689BEB6D5ECC99495A1A8D9B1DF2BA6A7B26E77E78A08D79D0241ABB9ED7CFB67FCFB8DDED0BB4EAFA436516120CC35AD77776870D56D762DDEC41C88E729B15FDC0AAE5FEFC17BE28B41EA034A3C01902A6F998643A7BCE9885186230907B8429DED7E72C8C12B3573CA18638ED97B16562FEE22888942EF01A5C379370312AC8FA6CE7E5958D07E27C0C7D9F7188FBFEC111A46764BB378E3493F77BD6A1EA6B770DCC77F67F3468EFFC4DAFDB5187FC47CBD8D6EBAC37A0AE715B8DFF6153B07FC06435BFCDC452566C3641E66F50AF7B19A1A7572FC8E4DC3AE20ADCB77E2E97FA1A7AD20FFE5DA76A5F5ABCD332E5451D5E707CFB9D970C777042E2C8AF39D56ABE671EF2CEF84CC388057C70B25246EDCD67C3B45B5CB25AE58948B0E0B8E9B2D747C6BA969DE4BAA1F865AAD3587818E691692440BFCD6B4DD98372B10D562CA1A1F4A5D5557A6D2C2ED260F28F074B992F9A21EEDE50EF834F51D862983A43D3F0AE317BBBF1B7694BAE295E411AA80E8AADA318848B1DBA956899802A6649919D830A853328DE4BE6FF85E33082D8252B",
+    "domain": ".yzw.cn",
+    "path": "/",
+    "expires": 1818210125.45258,
+    "httpOnly": true,
+    "secure": true,
+    "sameSite": "None"
+  },
+  {
+    "name": "YZ_Labor_ContractorUser",
+    "value": "19F27C3A289E04CA79F62F280F7A90D7C8C531A13F5C18B48F5027E9",
+    "domain": ".lw.yzw.cn",
+    "path": "/",
+    "expires": -1,
+    "httpOnly": false,
+    "secure": false,
+    "sameSite": "Lax"
+  },
+  {
+    "name": "YZ_Labor_ContractorUser_PlatCode",
+    "value": "B34D4D3EA65760E7EC2FD145F1A917DFEB1AFC062C5D11B48B5627EEFBE6F92FCDD5DA4E588DC51D7140",
+    "domain": ".lw.yzw.cn",
+    "path": "/",
+    "expires": -1,
+    "httpOnly": false,
+    "secure": false,
+    "sameSite": "Lax"
+  },
+  {
+    "name": "CONTRACTOR_HAS_ADMINROLE",
+    "value": "032796C600D54DC0E527BA3B2049B63294DAA875680C4DF7DF",
+    "domain": ".lw.yzw.cn",
+    "path": "/",
+    "expires": -1,
+    "httpOnly": false,
+    "secure": false,
+    "sameSite": "Lax"
+  },
+  {
+    "name": "__RequestVerificationToken",
+    "value": "Es_iQ0A2V_9hXXzmHgRSilXX4vBKb8bzBgttYY5fRm_MPsW0E8ThgIymUF019EQTaOD2rL2JsXr087qWkhD4cYf7sGQjTrF8VkGHNyQnFzI1",
+    "domain": "lw.yzw.cn",
+    "path": "/",
+    "expires": -1,
+    "httpOnly": true,
+    "secure": false,
+    "sameSite": "Lax"
+  },
+  {
+    "name": "HMACCOUNT_BFESS",
+    "value": "7BCA196C3260F6FE",
+    "domain": ".hm.baidu.com",
+    "path": "/",
+    "expires": 1818210130.458837,
+    "httpOnly": false,
+    "secure": true,
+    "sameSite": "None"
+  },
+  {
+    "name": "Hm_lvt_14f7dae3dd54e11aeb24382caa376914",
+    "value": "1783650130",
+    "domain": ".lw.yzw.cn",
+    "path": "/",
+    "expires": 1815186130,
+    "httpOnly": false,
+    "secure": false,
+    "sameSite": "Lax"
+  },
+  {
+    "name": "Hm_lpvt_14f7dae3dd54e11aeb24382caa376914",
+    "value": "1783650130",
+    "domain": ".lw.yzw.cn",
+    "path": "/",
+    "expires": -1,
+    "httpOnly": false,
+    "secure": false,
+    "sameSite": "Lax"
+  },
+  {
+    "name": "HMACCOUNT",
+    "value": "7BCA196C3260F6FE",
+    "domain": ".lw.yzw.cn",
+    "path": "/",
+    "expires": -1,
+    "httpOnly": false,
+    "secure": false,
+    "sameSite": "Lax"
+  },
+  {
+    "name": "com.home.selectedprojectcode",
+    "value": "128301637D46ED7420BF786889F16123310112332C5E19B4825024A2F8EEF923CFD796C98A715DEAB0A2C56A586AAD2ED9D9CFFE2065E364EDDB4FE3B946E312A9CC9FFB719DA26D998129A2AAC0C91CCAF6B9A61FF2352EB3A98BD8730346B8AB6E948B917E2CAE0B899FED310C095356EF8A43AA166999DE4BA1F6B10FF6B431664ADC5751971A88E0AE1E8C7672F94691E962670C0763712EA2917B508D074E50E7EFE469D95F4222A80BBC116A6B",
+    "domain": ".yzw.cn",
+    "path": "/",
+    "expires": -1,
+    "httpOnly": true,
+    "secure": true,
+    "sameSite": "Lax"
+  }
+]
