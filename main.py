@@ -221,6 +221,31 @@ def run_full_send(config: Dict[str, Any]) -> bool:
     else:
         logger.error("邮件发送失败")
     
+
+    # ========== 企业微信推送（企微机器人webhook） ==========
+    wecom_cfg = notifier_config.get("wecom", {})
+    if wecom_cfg.get("webhook_url"):
+        logger.info("开始企业微信推送...")
+        try:
+            wecom_notifier = Notifier({"method": "wecom", "wecom": wecom_cfg})
+            title_msg2 = f"【考勤报告】丰台区青塔项目 - {date_range}"
+            summary_text = f"丰台区青塔项目考勤报告\n日期: {today}\n区间: {date_range}\n在场: {len(onsite)}人 / {len(stats)}个班组"
+            wecom_notifier.send(
+                title=title_msg2,
+                content=summary_text,
+                context={
+                    "date_range": date_range,
+                    "count": len(onsite),
+                    "timestamp": datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
+                    "data": all_data,
+                },
+                attachments=list(img_paths.values()),
+            )
+            logger.info("企业微信推送完成")
+        except Exception as e:
+            logger.error(f"企业微信推送异常: {e}")
+    else:
+        logger.info("未配置企业微信 webhook，跳过企微推送")
     return success
 
 def cmd_list_sites(config: Dict[str, Any]) -> None:

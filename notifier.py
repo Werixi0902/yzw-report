@@ -73,6 +73,7 @@ class Notifier:
             "email": self._send_email,
             "wecom": self._send_wecom,
             "dingtalk": self._send_dingtalk,
+            "wxpusher": self._send_wxpusher,
         }
 
         sender = method_map.get(self.method)
@@ -222,11 +223,14 @@ class Notifier:
             logger.error(f"邮件发送失败: {e}")
             return False
 
+    
     # ==================== 企业微信推送 ====================
 
     def _send_wecom(self, title: str, content: str, context: dict, attachments: list) -> bool:
-        """通过企业微信机器人 webhook 推送消息"""
+        """通过企业微信机器人 webhook 推送消息（支持图片附件）"""
         import requests
+        import base64
+        import hashlib
 
         wecom_cfg = self.config.get("wecom", {})
         webhook_url = wecom_cfg.get("webhook_url", "")
@@ -235,47 +239,160 @@ class Notifier:
             logger.error("企业微信配置不完整: 缺少 webhook_url")
             return False
 
-        # 构建消息（支持 markdown）
+        # ========== 1. 发送 Markdown 摘要 ==========
         md_content = f"## {title}\n"
-        md_content += f"> 🕐 {context.get('timestamp', '')}\n\n"
-        if content:
-            md_content += f"{content}\n\n"
+        md_content += f"> \U0001f550 {context.get('timestamp', '')}\n\n"
 
-        extra = {k: v for k, v in context.items() if k not in ("title", "content", "timestamp", "data", "fields")}
+        # 日期范围
+        date_range = context.get("date_range", "")
+        if date_range:
+            md_content += f"**考勤区间**: {date_range}\n\n"
+
+        if content:
+            # 只取前800字做摘要（企微markdown有限制）
+            summary = content[:800] + ("..." if len(content) > 800 else "")
+            md_content += f"{summary}\n\n"
+
+        extra = {k: v for k, v in context.items() 
+                 if k not in ("title", "content", "timestamp", "data", "fields", "date_range")}
         for k, v in extra.items():
             md_content += f"**{k}**: {v}\n"
 
         # 数据概览
         data = context.get("data", [])
         if data and isinstance(data, list):
-            md_content += f"\n共抓取 **{len(data)}** 条数据\n"
-            if len(data) > 0:
-                fields = context.get("fields", list(data[0].keys()) if data else [])
-                header = " | ".join(str(f) for f in fields)
-                md_content += f"| {header} |\n"
-                md_content += "| " + " | ".join("---" for _ in fields) + " |\n"
-                for row in data[:10]:
-                    row_vals = [str(row.get(f, "")).replace("|", "/")[:30] for f in fields]
-                    md_content += "| " + " | ".join(row_vals) + " |\n"
+            md_content += f"\n共 **{len(data)}** 条考勤记录\n"
 
-        payload = {
-            "msgtype": "markdown",
-            "markdown": {"content": md_content},
-        }
+        payload = {"msgtype": "markdown", "markdown": {"content": md_content}}
 
         try:
             resp = requests.post(webhook_url, json=payload, timeout=10)
-            resp.raise_for_status()
             result = resp.json()
-            if result.get("errcode") == 0:
-                logger.info("企业微信推送成功")
-                return True
-            else:
-                logger.error(f"企业微信推送失败: {result}")
-                return False
+            if result.get("errcode") != 0:
+                logger.error(f"企业微信 Markdown 推送失败: {result}")
         except Exception as e:
-            logger.error(f"企业微信请求异常: {e}")
+            logger.error(f"企业微信 Markdown 请求异常: {e}")
+
+        # ========== 2. 发送图片附件 ==========
+        if attachments:
+            success_count = 0
+            for img_path in attachments:
+                if not os.path.exists(img_path):
+                    logger.warning(f"企微推送: 图片不存在 {img_path}")
+                    continue
+                try:
+                    with open(img_path, "rb") as f:
+                        img_bytes = f.read()
+
+                    # 检查大小（企微限制2MB）
+                    if len(img_bytes) > 2 * 1024 * 1024:
+                        logger.warning(f"企微推送: 图片过大 ({len(img_bytes)} bytes) {img_path}")
+                        continue
+
+                    img_b64 = base64.b64encode(img_bytes).decode("utf-8")
+                    img_md5 = hashlib.md5(img_bytes).hexdigest()
+
+                    img_payload = {
+                        "msgtype": "image",
+                        "image": {
+                            "base64": img_b64,
+                            "md5": img_md5,
+                        },
+                    }
+
+                    resp = requests.post(webhook_url, json=img_payload, timeout=30)
+                    result = resp.json()
+                    if result.get("errcode") == 0:
+                        success_count += 1
+                        logger.info(f"企微图片推送成功: {os.path.basename(img_path)}")
+                    else:
+                        logger.error(f"企微图片推送失败: {os.path.basename(img_path)} - {result}")
+                except Exception as e:
+                    logger.error(f"企微图片推送异常 {img_path}: {e}")
+
+            logger.info(f"企业微信推送完成: 摘要+{success_count}/{len(attachments)}张图片")
+            return success_count > 0
+
+        logger.info("企业微信推送完成（仅摘要）")
+        return True
+    # ==================== WxPusher 微信推送 ====================
+
+    def _send_wxpusher(self, title: str, content: str, context: dict, attachments: list) -> bool:
+        """通过 WxPusher 推送到个人微信"""
+        import requests
+
+        wp_cfg = self.config.get("wxpusher", {})
+        app_token = wp_cfg.get("app_token", "")
+        uids = wp_cfg.get("uids", [])
+        topic_ids = wp_cfg.get("topic_ids", [])
+
+        if not app_token or (not uids and not topic_ids):
+            logger.error("WxPusher 配置不完整")
             return False
+
+        date_range = context.get("date_range", "")
+        count = context.get("count", 0)
+        ts = context.get("timestamp", "")
+
+        # 构建 HTML 内容
+        html_parts = [
+            f"<h3>📋 {title}</h3>",
+            f"<p>🕐 {ts} | 📅 {date_range} | 👷 {count}人在场</p>",
+        ]
+
+        # 考勤数据表格
+        data = context.get("data", [])
+        if data:
+            onsite = [d for d in data if d.get("考勤卡状态", "") not in ("已销卡", "停用")]
+            if onsite:
+                # 按班组分组
+                groups = {}
+                for d in onsite:
+                    g = d.get("班组", "未分组")
+                    groups.setdefault(g, []).append(d)
+
+                for gname in sorted(groups.keys(), key=lambda x: -len(groups[x])):
+                    members = groups[gname]
+                    html_parts.append(f"<h4>◆ {gname}（{len(members)}人）</h4>")
+                    html_parts.append("<table border='1' cellpadding='4' cellspacing='0' style='border-collapse:collapse;font-size:12px'>")
+                    html_parts.append("<tr style='background:#f0f0f0'><th>姓名</th><th>工种</th><th>出勤天数</th><th>总工时</th></tr>")
+                    for w in members:
+                        name = w.get("姓名", "")
+                        work_type = w.get("工种", "")
+                        attend = w.get("出勤天数", "--")
+                        hours = w.get("总工时", "--")
+                        html_parts.append(f"<tr><td>{name}</td><td>{work_type}</td><td>{attend}</td><td>{hours}</td></tr>")
+                    html_parts.append("</table><br>")
+
+            html = "".join(html_parts)
+
+            # WxPusher API
+            payload = {
+                "appToken": app_token,
+                "content": html,
+                "contentType": 2,  # HTML
+                "uids": uids,
+                "topicIds": topic_ids,
+                "summary": f"考勤报告: {date_range} - {count}人在场",
+            }
+
+            try:
+                resp = requests.post(
+                    "https://wxpusher.zjiecode.com/api/send/message",
+                    json=payload, timeout=15
+                )
+                result = resp.json()
+                if result.get("code") == 1000:
+                    logger.info("WxPusher 推送成功")
+                    return True
+                else:
+                    logger.error(f"WxPusher 推送失败: {result}")
+                    return False
+            except Exception as e:
+                logger.error(f"WxPusher 请求异常: {e}")
+                return False
+
+        return True
 
     # ==================== 钉钉推送 ====================
 

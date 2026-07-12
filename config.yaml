@@ -67,3 +67,5 @@ notifier:
     recipients:
       - "327555703@qq.com"
     subject_template: "【考勤报告】丰台区青塔项目 - {date_range}"
+  wecom:
+    webhook_url: "https://qyapi.weixin.qq.com/cgi-bin/webhook/send?key=c5dd61ce-fe84-4f4a-b4ff-6bfc3012380a"

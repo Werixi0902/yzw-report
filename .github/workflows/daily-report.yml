@@ -1,4 +1,4 @@
-name: 每日考勤推送
+﻿name: 每日考勤推送
 
 on:
   schedule:
@@ -34,3 +34,4 @@ jobs:
 
       - name: 执行考勤推送
         run: python main.py --full-send
+  # schedule-refresh: 2026-07-12 09:23
