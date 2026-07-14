@@ -4,7 +4,6 @@ login_helper.py - 云筑网登录助手（自动打开浏览器版本）
 
 import os, sys, json, time, argparse, subprocess
 from datetime import datetime
-sys.path.insert(0, r'C:\Users\Yuan\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\site-packages')
 
 COOKIE_FILE = os.path.join(os.path.dirname(os.path.abspath(__file__)), "configs", "yzw_cookies.json")
 
