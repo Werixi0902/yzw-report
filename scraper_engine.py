@@ -617,7 +617,7 @@ class ScraperEngine:
 
     def _detect_table_structure(self, page):
         """动态检测 #attendanceTable 表头结构，根据配置选择最近N天"""
-        result = page.evaluate("""
+        result = page.evaluate(r"""
             () => {
                 const table = document.querySelector("#attendanceTable");
                 if (!table) return {error: "table not found"};
