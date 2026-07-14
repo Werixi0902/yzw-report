@@ -2,9 +2,9 @@
 from datetime import datetime
 from collections import OrderedDict
 
-OUTPUT_DIR = r"C:\Users\Yuan\Documents\云筑网劳务实名制数据抓取\data"
-SITE_PACKAGES = r"C:\Users\Yuan\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\site-packages"
-sys.path.insert(0, SITE_PACKAGES)
+# 基于脚本自身位置推导输出目录（不再硬编码其他机器路径）
+_HERE = os.path.dirname(os.path.abspath(__file__))
+OUTPUT_DIR = os.path.join(_HERE, "data")
 
 
 def status_style(val):
