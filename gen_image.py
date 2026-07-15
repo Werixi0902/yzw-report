@@ -154,13 +154,10 @@ def generate_all(data=None, output_dir=None):
 
     from playwright.sync_api import sync_playwright
 
-    p_ctx = None
     result = {}
 
-    try:
-        p_ctx = sync_playwright()
-        p_obj = p_ctx.__enter__()
-        browser = p_obj.chromium.launch(headless=True)
+    with sync_playwright() as p:
+        browser = p.chromium.launch(headless=True)
 
         for gname, members in sorted(groups.items(), key=lambda x: -len(x[1])):
             safe_name = re.sub(r'[\\/*?:"<>|]', "_", gname)
@@ -202,9 +199,6 @@ tr:hover {{ background:#f5f6fa }}
             result[gname] = img_path
 
         browser.close()
-    finally:
-        if p_ctx:
-            p_ctx.__exit__(None, None, None)
 
     print(f"\n共生成 {len(result)} 张班组图片")
     return result
