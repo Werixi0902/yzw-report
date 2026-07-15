@@ -5,7 +5,8 @@ from datetime import datetime
 
 # 基于脚本自身位置动态推导路径（不再硬编码其他机器路径）
 _HERE = os.path.dirname(os.path.abspath(__file__))
-PYTHON = sys.executable  # 用启动本脚本的解释器
+# 子进程用 python.exe（非 pythonw.exe），避免 Playwright 在无控制台模式下挂起
+PYTHON = sys.executable.replace("pythonw.exe", "python.exe") if "pythonw.exe" in sys.executable else sys.executable
 SCRIPT = os.path.join(_HERE, "main.py")
 LOG_DIR = os.path.join(_HERE, "logs")
 TARGET_HOUR, TARGET_MINUTE = 8, 0
@@ -37,7 +38,8 @@ def main():
             try:
                 result = subprocess.run(
                     [PYTHON, SCRIPT, "--full-send"],
-                    capture_output=True, text=True, timeout=300
+                    capture_output=True, text=True, timeout=300,
+                    stdin=subprocess.DEVNULL
                 )
                 last_run_date = today
                 log.info(f"推送完成，exit_code={result.returncode}")
