@@ -1,17 +1,14 @@
-﻿# -*- coding: utf-8 -*-
+# -*- coding: utf-8 -*-
 """定时调度器 - 后台运行，每天8:00自动执行考勤推送"""
-import os, time, subprocess, sys, logging
+import os, time, subprocess, sys, logging, ctypes
 from datetime import datetime
 
-# 基于脚本自身位置动态推导路径（不再硬编码其他机器路径）
 _HERE = os.path.dirname(os.path.abspath(__file__))
-# 子进程用 python.exe（非 pythonw.exe），避免 Playwright 在无控制台模式下挂起
 PYTHON = sys.executable.replace("pythonw.exe", "python.exe") if "pythonw.exe" in sys.executable else sys.executable
 SCRIPT = os.path.join(_HERE, "main.py")
 LOG_DIR = os.path.join(_HERE, "logs")
 TARGET_HOUR, TARGET_MINUTE = 8, 0
 
-# 日志写入文件（pythonw.exe 无控制台，print 会丢失）
 os.makedirs(LOG_DIR, exist_ok=True)
 logging.basicConfig(
     level=logging.INFO,
@@ -22,8 +19,25 @@ logging.basicConfig(
 )
 log = logging.getLogger("scheduler")
 
+ERROR_ALREADY_EXISTS = 183
+MUTEX_NAME = "Global\\YzwReportScheduler_Mutex"
+
+
+def acquire_mutex():
+    """尝试获取 Windows 互斥锁"""
+    mutex = ctypes.windll.kernel32.CreateMutexW(None, False, MUTEX_NAME)
+    if ctypes.windll.kernel32.GetLastError() == ERROR_ALREADY_EXISTS:
+        return None
+    return mutex
+
+
 def main():
-    log.info(f"调度器启动，目标时间: {TARGET_HOUR:02d}:00，Python: {PYTHON}")
+    mutex = acquire_mutex()
+    if mutex is None:
+        log.info("已有调度器实例运行，本进程退出")
+        sys.exit(0)
+
+    log.info(f"调度器启动 (PID={os.getpid()})，目标时间: {TARGET_HOUR:02d}:00，Python: {PYTHON}")
     last_run_date = ""
 
     while True:
@@ -49,6 +63,7 @@ def main():
                 log.error(f"推送失败: {e}")
 
         time.sleep(30)
+
 
 if __name__ == "__main__":
     main()
