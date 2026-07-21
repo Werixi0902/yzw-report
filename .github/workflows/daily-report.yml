@@ -2,7 +2,7 @@ name: 每日考勤推送
 
 on:
   schedule:
-    - cron: '5 0,9 * * *'
+    - cron: '30 1,16 * * *'
   workflow_dispatch:
 
 jobs:
@@ -32,6 +32,11 @@ jobs:
           mkdir -p configs
           echo "$CONFIG_B64" | base64 -d > config.yaml
           echo "$COOKIE_B64" | base64 -d > configs/yzw_cookies.json
+
+      - name: 记录执行时间
+        run: |
+          echo "UTC time: $(date -u '+%Y-%m-%d %H:%M:%S')"
+          echo "Beijing time (UTC+8): $(TZ='Asia/Shanghai' date '+%Y-%m-%d %H:%M:%S')"
 
       - name: 执行考勤推送
         run: python main.py --full-send
